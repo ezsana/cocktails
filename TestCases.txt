@@ -1,0 +1,201 @@
+TEST CASES AS IN BDD
+
+FEATURE: LOGIN function test
+
+  Scenario: valid login - user types valid login and password and gets permission to sign into their account
+    @GIVEN that user is on cocktail login page
+    @WHEN user types their username, password
+    @AND clicks on sign in button
+    @THEN welcome message indicates that user is logged in
+    @AND user can search in the search bar
+
+  Scenario: invalid login - user types wrong username / password and is not able to use the page
+    @GIVEN that user is on cocktail login page
+    @WHEN user types invalid username / password
+    @AND clicks on sign in button
+    @THEN message shows that data was incorrect
+    @AND user is not able to use the search bar
+
+  Scenario: user remains logged in even after leaving the application
+    @GIVEN user is logged in
+    @WHEN user leaves the application
+    @AND goes back to cocktail page
+    @THEN user is still logged in
+
+
+FEATURE: SIGN UP function test
+
+  Scenario: valid sign up - user fills the required fields and accepts terms&conditions
+    @GIVEN that user is on sign up page
+    @WHEN user enter correct data
+    @AND clicks on sign up
+    @THEN message informs the user that their account is ready
+    @AND user can log in
+
+  Scenario: user leaves out required fields so not allowed to create an account
+    @GIVEN that user is on sign up page
+    @WHEN user leaves out required field: name
+    @OR user leaves out required field: e-mail
+    @OR user leaves out required field: password
+    @OR user doesn't accepts terms&condition
+    @THEN reminder shows user about filling the field is required
+    @AND user is not able to create an account
+
+  Scenario: user can only use valid e-mail address
+    @GIVEN that user is on sign up page
+    @WHEN user enters invalid e-mail
+    @THEN message reminds them to use valid e-mail address
+
+  Scenario: reset form button is working
+    @GIVEN that user is on sign up page
+    @AND required fields are filled
+    @WHEN user clicks on reset button
+    @THEN all fields are cleared
+
+
+FEATURE: protection against SQL injection
+
+  Scenario: SQL injection is not possible using login
+    @GIVEN that user is on login page
+    @WHEN user tries SQL injection
+    @THEN message shows that data was incorrect
+    @AND database remains intact and unchanged
+
+  Scenario: SQL injection is not possible using sign up
+    @GIVEN that user is on sign up page
+    @WHEN user tries SQL injection
+    @THEN message shows that data was incorrect
+    @AND database remains intact and unchanged
+
+
+FEATURE: LOGOUT function tests
+
+  Scenario: logged in user clicks on log out button
+    @GIVEN user is logged in
+    @WHEN user clicks on logout button
+    @THEN user it is clearly seen that they're logged out
+
+  Scenario: user remains logged out after clicking the back button
+    @GIVEN user clicked on logout button
+    @WHEN clicks on back button
+    @THEN user is still logged out
+
+
+FEATURE: MENU LIST links (buttons) tests - except for "check fridge" button, all of them are in progress
+
+  Scenario: clicking on fridge button, adherent page is shown
+    @GIVEN that user is logged in
+    @WHEN user clicks on check fridge button
+    @THEN search bar for ingredient and submit button is shown next to the menu list
+
+
+FEATURE: HEADER ICONS tests (header icons: home, about, login, sign in)
+
+  Scenario outline: when user clicks on <header icon>, adherent page is shown
+    @GIVEN that user is logged in
+    @WHEN user clicks on <header icon>
+    @THEN adherent page is shown
+
+
+FEATURE: SEARCH BAR function on HOMEPAGE - user is able to search amongst all the cocktails
+
+  Scenario: on homepage user clicks in search bar and sees all cocktails
+    @GIVEN that user is logged in
+    @AND they are on the home page
+    @WHEN user clicks in the search bar
+    @THEN user can see all cocktails in a drop-down list
+
+  Scenario: clicking on cocktail name, cocktail details are shown on a new page
+    @GIVEN that user clicked in the search bar
+    @WHEN user clicks on a cocktail
+    @THEN cocktail details shown on a new page
+
+  Scenario: searching is possible by using keyboard
+    @GIVEN that user clicked in the search bar
+    @WHEN user types cocktail name
+    @AND presses enter
+    @THEN cocktail details shown on a new page
+
+
+FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails by ingredients
+
+  Scenario: on homepage user clicks in search bar and sees all ingredients
+    @GIVEN that user is on fridge page
+    @WHEN user clicks in the search bar of ingredients
+    @THEN user can see all ingredients in a drop-down list
+
+  Scenario: clicking on ingredient, ingredient appears under search bar
+    @GIVEN that user clicked in the search bar
+    @WHEN user clicks on an ingredient
+    @THEN ingredient is shown under search bar
+
+  Scenario: clicking on ingredient, cocktails containing this ingredient appear on page
+    @GIVEN that user clicked in the search bar
+    @WHEN user clicks on an ingredient
+    @THEN cocktails are shown on page
+
+  Scenario: more than one ingredient - with two ingredient in this scenario
+    @GIVEN user clicked in the search bar
+    @WHEN that user chooses two different ingredients
+    @THEN only those cocktails can be seen which are containing those ingredients
+
+  Scenario: searching is possible by using keyboard
+    @GIVEN that user clicked in the search bar
+    @WHEN user types ingredient
+    @AND presses enter
+    @THEN cocktails containing that ingredient are shown
+
+  Scenario: user able to delete ingredient from the list
+    @GIVEN that there are more two ingredients in the list
+    @WHEN user clicks one of them
+    @THEN the clicked ingredient is not anymore in the list, only one remains
+
+
+FEATURE: COCKTAIL PICTURES on homepage
+
+  Scenario: user can choose a cocktail from the pictures on the home page
+    @GIVEN that user is logged in
+    @AND user is on homepage
+    @WHEN user clicks on a cocktail picture
+    @THEN user is able to see the details of chosen cocktail on a new page
+
+FEATURE: COCKTAIL PAGE display
+
+  Scenario: user is able to see the following: picture of the cocktail; details of cocktail;
+            rating and commenting possibility; ratings and comments from the past, given by users
+    @GIVEN that user clicked on a cocktail picture
+    @WHEN cocktail page is fully loaded
+    @THEN user can see the above scenario details
+
+  Scenario outline: rating and comments for cocktails are saved even after leaving the application
+      @GIVEN that are <ratings_comments> on cocktail page
+      @WHEN user logs out
+      @AND user leaves the application
+      @WHEN user visits the same cocktail page again
+      @THEN all earlier <ratings_comments> are displayed
+
+
+FEATURE: RATING cocktails
+
+  Scenario: user can rate the cocktail
+    @GIVEN that user is on cocktail page
+    @WHEN user rates using the stars
+    @AND user clicks on rating button
+    @THEN new average rating is shown on page
+    @AND rating with user name is shown on page
+
+  Scenario: user changes their rating of the cocktail
+    @GIVEN that user already rated the cocktail
+    @WHEN user changes their rating
+    @THEN rating is updated
+    @AND average rating is updated
+
+FEATURE: COMMENT on cocktails
+
+  Scenario: user can comment on cocktails
+    @GIVEN that user is on cocktail page
+    @WHEN user types comment in comment section
+    @AND user click on rate button
+    @THEN comment is shown on cocktail page
+
+
