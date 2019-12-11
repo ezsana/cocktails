@@ -23,7 +23,7 @@ public class SignedInHomePage extends BasePage {
     @FindBy(xpath = "//span[.='Check cocktail']")
     WebElement checkCocktailBtn;
 
-    @FindBy(xpath = "//*[@id=\"input-39\"]")
+    @FindBy(xpath = "//*[@id='input-39']")
     WebElement cocktailSearchBar;
 
     @FindBy(xpath = "//div[@class='v-select-list v-card theme--dark']//div[@class='v-list-item__content']/div[.='A1']")
