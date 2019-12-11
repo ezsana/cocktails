@@ -8,6 +8,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class SignedInHomePage extends BasePage {
 
+    @FindBy(xpath = "//span[@id='welcome']")
+    WebElement welcomeMessage;
+
     @FindBy(xpath = "//span[.='About']")
     WebElement aboutBtn;
 

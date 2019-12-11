@@ -9,18 +9,26 @@ FEATURE: LOGIN function test
     @THEN welcome message indicates that user is logged in
     @AND user can search in the search bar
 
-  Scenario: invalid login - user types wrong username / password and is not able to use the page
+    #PASS - BUT BUG: former login details are seen and with the eye icon others could see the password
+
+  Scenario: invalid login - user types wrong username / password and is not able to use the page #FAILED
     @GIVEN that user is on cocktail login page
     @WHEN user types invalid username / password
     @AND clicks on sign in button
     @THEN message shows that data was incorrect
     @AND user is not able to use the search bar
 
+    #FAILED: the app logs in with the wrong username / password (welcome message appears but searching is not available)
+
   Scenario: user remains logged in even after leaving the application
     @GIVEN user is logged in
     @WHEN user leaves the application
     @AND goes back to cocktail page
     @THEN user is still logged in
+
+    #PASS
+
+  Scenario:
 
 
 FEATURE: SIGN UP function test
@@ -32,19 +40,26 @@ FEATURE: SIGN UP function test
     @THEN message informs the user that their account is ready
     @AND user can log in
 
+    #FAILED: no message about that the account was created BUT user can log in
+
   Scenario: user leaves out required fields so not allowed to create an account
     @GIVEN that user is on sign up page
     @WHEN user leaves out required field: name
     @OR user leaves out required field: e-mail
     @OR user leaves out required field: password
     @OR user doesn't accepts terms&condition
+    @AND clicks on sign in button
     @THEN reminder shows user about filling the field is required
     @AND user is not able to create an account
+
+    #PASS
 
   Scenario: user can only use valid e-mail address
     @GIVEN that user is on sign up page
     @WHEN user enters invalid e-mail
     @THEN message reminds them to use valid e-mail address
+
+    #FAILED
 
   Scenario: reset form button is working
     @GIVEN that user is on sign up page
@@ -52,8 +67,10 @@ FEATURE: SIGN UP function test
     @WHEN user clicks on reset button
     @THEN all fields are cleared
 
+    #PASS
 
-FEATURE: protection against SQL injection
+
+FEATURE: protection against SQL injection - THIS NEEDS A TEST DB
 
   Scenario: SQL injection is not possible using login
     @GIVEN that user is on login page
@@ -75,10 +92,14 @@ FEATURE: LOGOUT function tests
     @WHEN user clicks on logout button
     @THEN user it is clearly seen that they're logged out
 
+    #PASS
+
   Scenario: user remains logged out after clicking the back button
     @GIVEN user clicked on logout button
     @WHEN clicks on back button
     @THEN user is still logged out
+
+    #PASS - BUT BUG: with back button anybody can see login details
 
 
 FEATURE: MENU LIST links (buttons) tests - except for "check fridge" button, all of them are in progress
@@ -86,15 +107,19 @@ FEATURE: MENU LIST links (buttons) tests - except for "check fridge" button, all
   Scenario: clicking on fridge button, adherent page is shown
     @GIVEN that user is logged in
     @WHEN user clicks on check fridge button
-    @THEN search bar for ingredient and submit button is shown next to the menu list
+    @THEN search bar for ingredient is shown next to the menu list
+
+    #PASS (Submit button?)
 
 
-FEATURE: HEADER ICONS tests (header icons: home, about, login, sign in)
+FEATURE: HEADER ICONS tests (header icons: home, about)
 
   Scenario outline: when user clicks on <header icon>, adherent page is shown
     @GIVEN that user is logged in
     @WHEN user clicks on <header icon>
     @THEN adherent page is shown
+
+    #PASS
 
 
 FEATURE: SEARCH BAR function on HOMEPAGE - user is able to search amongst all the cocktails
@@ -105,16 +130,24 @@ FEATURE: SEARCH BAR function on HOMEPAGE - user is able to search amongst all th
     @WHEN user clicks in the search bar
     @THEN user can see all cocktails in a drop-down list
 
+    #PASS
+
   Scenario: clicking on cocktail name, cocktail details are shown on a new page
     @GIVEN that user clicked in the search bar
     @WHEN user clicks on a cocktail
+    @AND clicks submit button
     @THEN cocktail details shown on a new page
+
+    #PASS
 
   Scenario: searching is possible by using keyboard
     @GIVEN that user clicked in the search bar
     @WHEN user types cocktail name
     @AND presses enter
+    @AND clicks submit
     @THEN cocktail details shown on a new page
+
+    #PASS - use enter to go to cocktail page?
 
 
 FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails by ingredients
@@ -124,20 +157,28 @@ FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails b
     @WHEN user clicks in the search bar of ingredients
     @THEN user can see all ingredients in a drop-down list
 
+    #PASS - Where is submit button???
+
   Scenario: clicking on ingredient, ingredient appears under search bar
     @GIVEN that user clicked in the search bar
     @WHEN user clicks on an ingredient
     @THEN ingredient is shown under search bar
+
+    #PASS
 
   Scenario: clicking on ingredient, cocktails containing this ingredient appear on page
     @GIVEN that user clicked in the search bar
     @WHEN user clicks on an ingredient
     @THEN cocktails are shown on page
 
+    #PASS
+
   Scenario: more than one ingredient - with two ingredient in this scenario
     @GIVEN user clicked in the search bar
     @WHEN that user chooses two different ingredients
     @THEN only those cocktails can be seen which are containing those ingredients
+
+    #PASS
 
   Scenario: searching is possible by using keyboard
     @GIVEN that user clicked in the search bar
@@ -145,10 +186,16 @@ FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails b
     @AND presses enter
     @THEN cocktails containing that ingredient are shown
 
+    #FAILED - enter not working
+
   Scenario: user able to delete ingredient from the list
     @GIVEN that there are more two ingredients in the list
     @WHEN user clicks one of them
     @THEN the clicked ingredient is not anymore in the list, only one remains
+
+    #PASS
+
+  Scenario: when user deletes all ingredient, all of the pictures disappears
 
 
 FEATURE: COCKTAIL PICTURES on homepage
@@ -159,6 +206,8 @@ FEATURE: COCKTAIL PICTURES on homepage
     @WHEN user clicks on a cocktail picture
     @THEN user is able to see the details of chosen cocktail on a new page
 
+    #PASS
+
 FEATURE: COCKTAIL PAGE display
 
   Scenario: user is able to see the following: picture of the cocktail; details of cocktail;
@@ -167,12 +216,16 @@ FEATURE: COCKTAIL PAGE display
     @WHEN cocktail page is fully loaded
     @THEN user can see the above scenario details
 
+    #PASS
+
   Scenario outline: rating and comments for cocktails are saved even after leaving the application
       @GIVEN that are <ratings_comments> on cocktail page
       @WHEN user logs out
       @AND user leaves the application
       @WHEN user visits the same cocktail page again
       @THEN all earlier <ratings_comments> are displayed
+
+      #PASS
 
 
 FEATURE: RATING cocktails
@@ -184,11 +237,15 @@ FEATURE: RATING cocktails
     @THEN new average rating is shown on page
     @AND rating with user name is shown on page
 
+    #PASS
+
   Scenario: user changes their rating of the cocktail
     @GIVEN that user already rated the cocktail
     @WHEN user changes their rating
     @THEN rating is updated
     @AND average rating is updated
+
+    #FAILED
 
 FEATURE: COMMENT on cocktails
 
@@ -197,5 +254,7 @@ FEATURE: COMMENT on cocktails
     @WHEN user types comment in comment section
     @AND user click on rate button
     @THEN comment is shown on cocktail page
+
+    #PASS BUT BUG: separate rating and comment would be welcomed
 
 
