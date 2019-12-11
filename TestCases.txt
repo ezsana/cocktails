@@ -148,7 +148,7 @@ FEATURE: SEARCH BAR function on HOMEPAGE - user is able to search amongst all th
     @THEN cocktail details shown on a new page
 
     #PASS - use enter to go to cocktail page?
-
+#########################################################################################################################
 
 FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails by ingredients
 

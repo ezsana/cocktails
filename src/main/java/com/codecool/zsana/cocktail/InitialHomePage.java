@@ -23,7 +23,7 @@ public class InitialHomePage extends BasePage {
     WebElement loginBtn;
 
     @FindBy(xpath = "//*[@id=\"input-39\"]")
-    WebElement homePageSearchBar;
+    WebElement cocktailSearchBar;
 
     @FindBy(xpath = "//button[@class='v-btn v-btn--contained theme--dark v-size--default']")
     WebElement checkCocktailBtn;

@@ -20,14 +20,17 @@ public class SignedInHomePage extends BasePage {
     @FindBy(xpath = "//div[@class='v-content__wrap']//div[2]//div[@class='v-responsive__content']")
     WebElement a1CocktailPicture;
 
-    @FindBy(xpath = "//*[@id='input-40']")
-    WebElement cocktailSearchBar;
-
     @FindBy(xpath = "//span[.='Check cocktail']")
     WebElement checkCocktailBtn;
 
+    @FindBy(xpath = "//*[@id=\"input-39\"]")
+    WebElement cocktailSearchBar;
+
     @FindBy(xpath = "//div[@class='v-select-list v-card theme--dark']//div[@class='v-list-item__content']/div[.='A1']")
     WebElement a1CocktailLinkFromSearchBar;
+
+    @FindBy(xpath = "//div[@class='v-list v-sheet v-sheet--tile theme--dark v-list--dense']//div[@class='v-list-item__content']/div[.='Check Fridge']")
+    WebElement checkFridgeLink;
 
     public SignedInHomePage(WebDriver driver) {
         super(driver);

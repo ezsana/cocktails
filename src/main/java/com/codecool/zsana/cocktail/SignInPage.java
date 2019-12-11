@@ -11,7 +11,7 @@ public class SignInPage extends BasePage {
     private String invalidPassword = System.getenv("INVALID_PASSWORD");
     private String invalidUsername = System.getenv("INVALID_USERNAME");
 
-    String loginUrl = "http://localhost:8080/login";
+    String loginUrl = "http://localhost:8081/login"; // this changes!!!
 
     @FindBy(xpath = "//*[@id='input-69']")
     WebElement signInNameBar;
@@ -36,9 +36,9 @@ public class SignInPage extends BasePage {
     boolean hasNameAppearedInWelcomeMessage(SignedInHomePage signedInHomePage) {
         return signedInHomePage.welcomeMessage.getText().equals("Welcome " + validUserName);
     }
-
+/*
     boolean areCocktailsSeenInSearchBar(SignedInHomePage signedInHomePage) {
         return signedInHomePage.cocktailSearchBar.
     }
-
+*/
 }
