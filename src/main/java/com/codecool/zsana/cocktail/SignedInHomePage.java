@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.concurrent.TimeUnit;
+
 /** Homepage for the logged-in users */
 
 public class SignedInHomePage extends BasePage {
@@ -32,8 +34,23 @@ public class SignedInHomePage extends BasePage {
     @FindBy(xpath = "//div[@class='v-list v-sheet v-sheet--tile theme--dark v-list--dense']//div[@class='v-list-item__content']/div[.='Check Fridge']")
     WebElement checkFridgeLink;
 
+    String a1PageUrl = "http://localhost:8081/cocktail/A1";
+
     public SignedInHomePage(WebDriver driver) {
         super(driver);
+    }
+
+    void clickOnLogoutBtn() {
+        logoutBtn.click();
+    }
+
+    void clickOna1Picture() {
+        a1CocktailPicture.click();
+    }
+
+    boolean isUserOna1Page() {
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        return driver.getCurrentUrl().equals(a1PageUrl);
     }
 
 }

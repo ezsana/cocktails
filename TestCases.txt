@@ -28,7 +28,7 @@ FEATURE: LOGIN function test
 
     #PASS
 
-  Scenario:
+  Scenario: double login is not possible: after login user is not able to log in again, only if they log out first
 
 
 FEATURE: SIGN UP function test
@@ -189,13 +189,18 @@ FEATURE: SEARCH BAR function on FRIDGE PAGE - user is able to search cocktails b
     #FAILED - enter not working
 
   Scenario: user able to delete ingredient from the list
-    @GIVEN that there are more two ingredients in the list
+    @GIVEN that there are more (two) ingredients in the list
     @WHEN user clicks one of them
     @THEN the clicked ingredient is not anymore in the list, only one remains
 
     #PASS
 
   Scenario: when user deletes all ingredient, all of the pictures disappears
+    @Given that there are more (two) ingredients in the list
+    @WHEN user clicks on all of them
+    @THEN all cocktail pictures disappears from the page
+
+   #FAILED
 
 
 FEATURE: COCKTAIL PICTURES on homepage

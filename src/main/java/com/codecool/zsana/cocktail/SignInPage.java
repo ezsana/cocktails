@@ -13,13 +13,13 @@ public class SignInPage extends BasePage {
 
     String loginUrl = "http://localhost:8081/login"; // this changes!!!
 
-    @FindBy(xpath = "//*[@id='input-69']")
+    @FindBy(css = "input[type='text']")
     WebElement signInNameBar;
 
-    @FindBy(xpath = "//*[@id='input-72']")
+    @FindBy(css = "input[type='password']")
     WebElement signInPasswordBar;
 
-    @FindBy(xpath = "//button[@class='mr-4 v-btn v-btn--contained theme--dark v-size--default success']")
+    @FindBy(css = "button.mr-4 > .v-btn__content")
     WebElement submitLoginBtn;
 
     public SignInPage(WebDriver driver) {
